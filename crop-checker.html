@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Suitability Checker - AgriAdvisor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Green Mind Ai</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="crop-checker.html" class="active"><i class="fas fa-seedling"></i> Crop Checker</a></li>
+                <li><a href="fertility-checker.html"><i class="fas fa-flask"></i> Fertility Checker</a></li>
+                <li><a href="education.html"><i class="fas fa-book"></i> Education</a></li>
+                <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero crop-checker-hero">
+            <div class="hero-content">
+                <h1>Crop Suitability Checker</h1>
+                <p>Find out if a specific crop or tree will thrive in your land conditions</p>
+            </div>
+        </section>
+
+        <section class="crop-checker-container">
+            <div class="checker-tabs">
+                <button class="tab-btn active" data-tab="by-crop">Select Crop First</button>
+                <button class="tab-btn" data-tab="by-land">Enter Land Details First</button>
+            </div>
+
+            <div id="by-crop-tab" class="tab-content">
+                <div class="crop-selection">
+                    <h2>Step 1: Select a Crop</h2>
+                    <div class="search-container">
+                        <input type="text" id="cropSearch" placeholder="Search for a crop...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    
+                    <div class="crop-categories">
+                        <button class="category-btn active" data-category="all">All</button>
+                        <button class="category-btn" data-category="Food">Food Crops</button>
+                        <button class="category-btn" data-category="Fruit">Fruit Trees</button>
+                        <button class="category-btn" data-category="Commercial">Commercial</button>
+                        <button class="category-btn" data-category="Reforestation">Reforestation</button>
+                        <button class="category-btn" data-category="Ornamental">Ornamental</button>
+                    </div>
+                    
+                    <div class="crop-grid" id="cropGrid">
+                        <!-- Crops will be populated here by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="land-details-form hidden" id="cropSelectedForm">
+                    <h2>Step 2: Enter Your Land Details</h2>
+                    <div class="selected-crop-info" id="selectedCropInfo">
+                        <!-- Selected crop info will be displayed here -->
+                    </div>
+                    
+                    <form id="cropCheckerForm">
+                        <div class="form-group">
+                            <label for="cc-soilType">Soil Type:</label>
+                            <select id="cc-soilType" name="soilType" required>
+                                <option value="">Select Soil Type</option>
+                                <option value="Clay">Clay</option>
+                                <option value="Sandy">Sandy</option>
+                                <option value="Loamy">Loamy</option>
+                                <option value="Silt">Silt</option>
+                                <option value="Peaty">Peaty</option>
+                                <option value="Chalky">Chalky</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cc-phLevel">pH Level:</label>
+                            <div class="range-slider">
+                                <input type="range" id="cc-phLevel" name="phLevel" min="3.0" max="9.0" step="0.1" value="6.5">
+                                <div class="range-labels">
+                                    <span>Acidic (3.0)</span>
+                                    <span id="cc-phValue">6.5</span>
+                                    <span>Alkaline (9.0)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cc-rainfall">Rainfall:</label>
+                            <select id="cc-rainfall" name="rainfall" required>
+                                <option value="">Select Rainfall Level</option>
+                                <option value="Low">Low (less than 600mm/year)</option>
+                                <option value="Medium">Medium (600-1200mm/year)</option>
+                                <option value="High">High (more than 1200mm/year)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cc-temperature">Temperature Range:</label>
+                            <select id="cc-temperature" name="temperature" required>
+                                <option value="">Select Temperature Range</option>
+                                <option value="Cool">Cool (below 15°C)</option>
+                                <option value="Moderate">Moderate (15-25°C)</option>
+                                <option value="Hot">Hot (above 25°C)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cc-waterAvailability">Water Availability:</label>
+                            <select id="cc-waterAvailability" name="waterAvailability" required>
+                                <option value="">Select Water Availability</option>
+                                <option value="Low">Low</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-primary"><i class="fas fa-check-circle"></i> Check Suitability</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="by-land-tab" class="tab-content hidden">
+                <h2>Enter Your Land Details</h2>
+                <form id="landFirstForm">
+                    <div class="form-group">
+                        <label for="lf-soilType">Soil Type:</label>
+                        <select id="lf-soilType" name="soilType" required>
+                            <option value="">Select Soil Type</option>
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                            <option value="Silt">Silt</option>
+                            <option value="Peaty">Peaty</option>
+                            <option value="Chalky">Chalky</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lf-phLevel">pH Level:</label>
+                        <div class="range-slider">
+                            <input type="range" id="lf-phLevel" name="phLevel" min="3.0" max="9.0" step="0.1" value="6.5">
+                            <div class="range-labels">
+                                <span>Acidic (3.0)</span>
+                                <span id="lf-phValue">6.5</span>
+                                <span>Alkaline (9.0)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lf-rainfall">Rainfall:</label>
+                        <select id="lf-rainfall" name="rainfall" required>
+                            <option value="">Select Rainfall Level</option>
+                            <option value="Low">Low (less than 600mm/year)</option>
+                            <option value="Medium">Medium (600-1200mm/year)</option>
+                            <option value="High">High (more than 1200mm/year)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lf-temperature">Temperature Range:</label>
+                        <select id="lf-temperature" name="temperature" required>
+                            <option value="">Select Temperature Range</option>
+                            <option value="Cool">Cool (below 15°C)</option>
+                            <option value="Moderate">Moderate (15-25°C)</option>
+                            <option value="Hot">Hot (above 25°C)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lf-waterAvailability">Water Availability:</label>
+                        <select id="lf-waterAvailability" name="waterAvailability" required>
+                            <option value="">Select Water Availability</option>
+                            <option value="Low">Low</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary"><i class="fas fa-search"></i> Find Suitable Crops</button>
+                </form>
+            </div>
+
+            <div id="suitability-results" class="suitability-results hidden">
+                <div class="results-header">
+                    <h2>Suitability Analysis</h2>
+                    <div class="results-actions">
+                        <button id="printSuitability" class="btn-icon"><i class="fas fa-print"></i> Print</button>
+                        <button id="backToChecker" class="btn-icon"><i class="fas fa-arrow-left"></i> Back</button>
+                    </div>
+                </div>
+                <div id="suitabilityContainer">
+                    <!-- Suitability results will be displayed here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Green Mind Ai</h3>
+                <p>Helping farmers make informed decisions for sustainable and productive agriculture.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="crop-checker.html">Crop Checker</a></li>
+                    <li><a href="fertility-checker.html">Fertility Checker</a></li>
+                    <li><a href="education.html">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> Greenmindai@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +91 94656-61660</p>
+                <p><i class="fas fa-map-marker-alt"></i> Chitkara university,Himachal Pradesh</p>
+            </div>
+        </div>
+       
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="crop-checker.js"></script>
+</body>
+</html>

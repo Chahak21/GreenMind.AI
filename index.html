@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriAdvisor - Land Crop Recommendation System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Green Mind Ai</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="crop-checker.html"><i class="fas fa-seedling"></i> Crop Checker</a></li>
+                <li><a href="fertility-checker.html"><i class="fas fa-flask"></i> Fertility Checker</a></li>
+                <li><a href="education.html"><i class="fas fa-book"></i> Education</a></li>
+                <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Find the Perfect Crops for Your Land</h1>
+                <p>Get personalized recommendations based on your soil type, climate, and water availability</p>
+                <div class="hero-buttons">
+                    <a href="#land-form" class="btn-primary"><i class="fas fa-search"></i> Get Recommendations</a>
+                    <a href="education.html" class="btn-secondary"><i class="fas fa-book"></i> Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="photo1.jpg" alt="Farming illustration">
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Our Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Land Analysis</h3>
+                    <p>Get crop recommendations based on your specific land conditions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Crop Suitability</h3>
+                    <p>Check if specific crops will thrive in your land conditions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Fertility Assessment</h3>
+                    <p>Analyze your soil fertility and get improvement recommendations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Educational Resources</h3>
+                    <p>Learn about soil types, farming techniques, and sustainable practices</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="land-form" class="form-container">
+            <h2>Enter Your Land Details</h2>
+            <div class="progress-bar">
+                <div class="progress" id="formProgress"></div>
+            </div>
+            <form id="landForm">
+                <div class="form-group">
+                    <label for="area">Area Size (acres):</label>
+                    <input type="number" id="area" name="area" min="0.1" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="soilType">Soil Type:</label>
+                    <select id="soilType" name="soilType" required>
+                        <option value="">Select Soil Type</option>
+                        <option value="Clay">Clay</option>
+                        <option value="Sandy">Sandy</option>
+                        <option value="Loamy">Loamy</option>
+                        <option value="Silt">Silt</option>
+                        <option value="Peaty">Peaty</option>
+                        <option value="Chalky">Chalky</option>
+                    </select>
+                    <div class="info-tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Not sure about your soil type? Check our soil guide in the Education section.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phLevel">pH Level:</label>
+                    <div class="range-slider">
+                        <input type="range" id="phLevel" name="phLevel" min="3.0" max="9.0" step="0.1" value="6.5">
+                        <div class="range-labels">
+                            <span>Acidic (3.0)</span>
+                            <span id="phValue">6.5</span>
+                            <span>Alkaline (9.0)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rainfall">Rainfall:</label>
+                    <select id="rainfall" name="rainfall" required>
+                        <option value="">Select Rainfall Level</option>
+                        <option value="Low">Low (less than 600mm/year)</option>
+                        <option value="Medium">Medium (600-1200mm/year)</option>
+                        <option value="High">High (more than 1200mm/year)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="temperature">Temperature Range:</label>
+                    <select id="temperature" name="temperature" required>
+                        <option value="">Select Temperature Range</option>
+                        <option value="Cool">Cool (below 15°C)</option>
+                        <option value="Moderate">Moderate (15-25°C)</option>
+                        <option value="Hot">Hot (above 25°C)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="waterAvailability">Water Availability:</label>
+                    <select id="waterAvailability" name="waterAvailability" required>
+                        <option value="">Select Water Availability</option>
+                        <option value="Low">Low</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="goal">Preferred Goal:</label>
+                    <select id="goal" name="goal" required>
+                        <option value="">Select Your Goal</option>
+                        <option value="Food">Food Crops</option>
+                        <option value="Fruit">Fruit Trees</option>
+                        <option value="Commercial">Commercial Farming</option>
+                        <option value="Reforestation">Reforestation</option>
+                        <option value="Ornamental">Ornamental Plants</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary"><i class="fas fa-search"></i> Get Recommendations</button>
+            </form>
+        </section>
+
+        <section id="results" class="results-container hidden">
+            <div class="results-header">
+                <h2>Your Recommendations</h2>
+                <div class="results-actions">
+                    <button id="printResults" class="btn-icon"><i class="fas fa-print"></i> Print</button>
+                    <button id="saveResults" class="btn-icon"><i class="fas fa-save"></i> Save</button>
+                    <button id="shareResults" class="btn-icon"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+            <div id="recommendationsContainer"></div>
+            <button id="backToForm" class="btn-secondary"><i class="fas fa-arrow-left"></i> Back to Form</button>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Farmers Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="chetan.jpeg" alt="Farmer portrait">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"AgriAdvisor helped me transform my unproductive land into a thriving farm. The recommendations were spot on!"</p>
+                        <h4>John D.</h4>
+                        <p class="testimonial-location">Iowa, USA</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="chetan2.webp" alt="Farmer portrait">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"The soil fertility checker gave me insights I never had before. My crop yield has increased by 30%!"</p>
+                        <h4>Maria G.</h4>
+                        <p class="testimonial-location">California, USA</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="bleble.jpg" alt="Farmer portrait">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"As a new farmer, the educational resources were invaluable. I learned so much about sustainable farming practices."</p>
+                        <h4>Robert T.</h4>
+                        <p class="testimonial-location">Texas, USA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Green Mind Ai</h3>
+                <p>Helping farmers make informed decisions for sustainable and productive agriculture.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="crop-checker.html">Crop Checker</a></li>
+                    <li><a href="fertility-checker.html">Fertility Checker</a></li>
+                    <li><a href="education.html">Education</a></li>
+                </ul>
+            </div>
+              <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> Greenmindai@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +91 94656-61660</p>
+                <p><i class="fas fa-map-marker-alt"></i> Chitkara university,Himachal Pradesh</p>
+            </div>
+        </div>
+       
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

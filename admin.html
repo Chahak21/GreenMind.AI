@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Land Crop Recommendation System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Green Mind Ai</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="admin.html" class="active">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="admin-hero">
+            <div class="hero-content">
+                <h1>Admin Panel</h1>
+                <p>Manage crop database and recommendation rules</p>
+            </div>
+        </section>
+
+        <section class="admin-container">
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="view">View Database</button>
+                <button class="tab-btn" data-tab="add">Add New Crop</button>
+            </div>
+
+            <div id="view-tab" class="tab-content">
+                <h2>Crop Database</h2>
+                <div class="search-container">
+                    <input type="text" id="searchCrop" placeholder="Search crops...">
+                </div>
+                <table id="cropTable">
+                    <thead>
+                        <tr>
+                            <th>Crop/Tree</th>
+                            <th>Soil Types</th>
+                            <th>Rainfall</th>
+                            <th>Temperature</th>
+                            <th>Water Needs</th>
+                            <th>pH Range</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cropTableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="add-tab" class="tab-content hidden">
+                <h2>Add New Crop</h2>
+                <form id="addCropForm">
+                    <div class="form-group">
+                        <label for="cropName">Crop/Tree Name:</label>
+                        <input type="text" id="cropName" name="cropName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Suitable Soil Types:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="soilTypes" value="Clay"> Clay</label>
+                            <label><input type="checkbox" name="soilTypes" value="Sandy"> Sandy</label>
+                            <label><input type="checkbox" name="soilTypes" value="Loamy"> Loamy</label>
+                            <label><input type="checkbox" name="soilTypes" value="Silt"> Silt</label>
+                            <label><input type="checkbox" name="soilTypes" value="Peaty"> Peaty</label>
+                            <label><input type="checkbox" name="soilTypes" value="Chalky"> Chalky</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Suitable Rainfall:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="rainfall" value="Low"> Low</label>
+                            <label><input type="checkbox" name="rainfall" value="Medium"> Medium</label>
+                            <label><input type="checkbox" name="rainfall" value="High"> High</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Suitable Temperature:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="temperature" value="Cool"> Cool</label>
+                            <label><input type="checkbox" name="temperature" value="Moderate"> Moderate</label>
+                            <label><input type="checkbox" name="temperature" value="Hot"> Hot</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Water Needs:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="waterNeeds" value="Low"> Low</label>
+                            <label><input type="checkbox" name="waterNeeds" value="Moderate"> Moderate</label>
+                            <label><input type="checkbox" name="waterNeeds" value="High"> High</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phMin">pH Range:</label>
+                        <div class="range-inputs">
+                            <input type="number" id="phMin" name="phMin" min="3.0" max="9.0" step="0.1" value="5.5" required>
+                            <span>to</span>
+                            <input type="number" id="phMax" name="phMax" min="3.0" max="9.0" step="0.1" value="7.5" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Food">Food Crop</option>
+                            <option value="Fruit">Fruit Tree</option>
+                            <option value="Commercial">Commercial Crop</option>
+                            <option value="Reforestation">Reforestation</option>
+                            <option value="Ornamental">Ornamental Plant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="growingTips">Growing Tips:</label>
+                        <textarea id="growingTips" name="growingTips" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Add Crop</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    
+
+    <script src="database.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.add('hidden'));
+                    
+                    // Show the selected tab content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
+
+            // Populate crop table
+            function populateCropTable(crops = cropDatabase) {
+                const tableBody = document.getElementById('cropTableBody');
+                tableBody.innerHTML = '';
+
+                crops.forEach((crop, index) => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${crop.name}</td>
+                        <td>${crop.soilTypes.join(', ')}</td>
+                        <td>${crop.rainfall.join(', ')}</td>
+                        <td>${crop.temperature.join(', ')}</td>
+                        <td>${crop.waterNeeds.join(', ')}</td>
+                        <td>${crop.phRange.min} - ${crop.phRange.max}</td>
+                        <td>${crop.category}</td>
+                        <td>
+                            <button class="btn-small" onclick="editCrop(${index})">Edit</button>
+                            <button class="btn-small btn-danger" onclick="deleteCrop(${index})">Delete</button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Search functionality
+            const searchInput = document.getElementById('searchCrop');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredCrops = cropDatabase.filter(crop => 
+                    crop.name.toLowerCase().includes(searchTerm)
+                );
+                populateCropTable(filteredCrops);
+            });
+
+            // Add new crop form submission
+            const addCropForm = document.getElementById('addCropForm');
+            addCropForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('cropName').value;
+                
+                const soilTypes = Array.from(document.querySelectorAll('input[name="soilTypes"]:checked'))
+                    .map(checkbox => checkbox.value);
+                
+                const rainfall = Array.from(document.querySelectorAll('input[name="rainfall"]:checked'))
+                    .map(checkbox => checkbox.value);
+                
+                const temperature = Array.from(document.querySelectorAll('input[name="temperature"]:checked'))
+                    .map(checkbox => checkbox.value);
+                
+                const waterNeeds = Array.from(document.querySelectorAll('input[name="waterNeeds"]:checked'))
+                    .map(checkbox => checkbox.value);
+                
+                const phMin = parseFloat(document.getElementById('phMin').value);
+                const phMax = parseFloat(document.getElementById('phMax').value);
+                
+                const category = document.getElementById('category').value;
+                const description = document.getElementById('description').value;
+                const growingTips = document.getElementById('growingTips').value;
+                
+                // Validate form
+                if (soilTypes.length === 0 || rainfall.length === 0 || 
+                    temperature.length === 0 || waterNeeds.length === 0) {
+                    alert('Please select at least one option for each category');
+                    return;
+                }
+                
+                // Create new crop object
+                const newCrop = {
+                    name,
+                    soilTypes,
+                    rainfall,
+                    temperature,
+                    waterNeeds,
+                    phRange: { min: phMin, max: phMax },
+                    category,
+                    description,
+                    growingTips
+                };
+                
+                // Add to database
+                cropDatabase.push(newCrop);
+                
+                // Save to localStorage
+                localStorage.setItem('cropDatabase', JSON.stringify(cropDatabase));
+                
+                // Update table
+                populateCropTable();
+                
+                // Reset form
+                addCropForm.reset();
+                
+                // Show success message
+                alert(`${name} has been added to the database!`);
+                
+                // Switch to view tab
+                document.querySelector('[data-tab="view"]').click();
+            });
+
+            // Initialize
+            populateCropTable();
+
+            // Make functions available globally
+            window.editCrop = function(index) {
+                alert('Edit functionality would be implemented here');
+                // In a real application, this would populate the form with the crop data
+            };
+
+            window.deleteCrop = function(index) {
+                if (confirm(`Are you sure you want to delete ${cropDatabase[index].name}?`)) {
+                    cropDatabase.splice(index, 1);
+                    localStorage.setItem('cropDatabase', JSON.stringify(cropDatabase));
+                    populateCropTable();
+                }
+            };
+        });
+    </script>
+</body>
+</html>

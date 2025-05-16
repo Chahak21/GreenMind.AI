@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Fertility Checker - Green Mind Ai</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Green Mind Ai</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="crop-checker.html"><i class="fas fa-seedling"></i> Crop Checker</a></li>
+                <li><a href="fertility-checker.html" class="active"><i class="fas fa-flask"></i> Fertility Checker</a></li>
+                <li><a href="education.html"><i class="fas fa-book"></i> Education</a></li>
+                <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero fertility-checker-hero">
+            <div class="hero-content">
+                <h1>Soil Fertility Checker</h1>
+                <p>Analyze your soil's fertility and get personalized improvement recommendations</p>
+            </div>
+        </section>
+
+        <section class="fertility-checker-container">
+            <div class="fertility-tabs">
+                <button class="tab-btn active" data-tab="basic">Basic Assessment</button>
+                <button class="tab-btn" data-tab="advanced">Advanced Assessment</button>
+            </div>
+
+            <div id="basic-tab" class="tab-content">
+                <h2>Basic Soil Fertility Assessment</h2>
+                <p class="tab-description">This quick assessment provides general recommendations based on basic soil properties.</p>
+                
+                <form id="basicFertilityForm">
+                    <div class="form-group">
+                        <label for="soilType">Soil Type:</label>
+                        <select id="soilType" name="soilType" required>
+                            <option value="">Select Soil Type</option>
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                            <option value="Silt">Silt</option>
+                            <option value="Peaty">Peaty</option>
+                            <option value="Chalky">Chalky</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phLevel">pH Level:</label>
+                        <div class="range-slider">
+                            <input type="range" id="phLevel" name="phLevel" min="3.0" max="9.0" step="0.1" value="6.5">
+                            <div class="range-labels">
+                                <span>Acidic (3.0)</span>
+                                <span id="phValue">6.5</span>
+                                <span>Alkaline (9.0)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Observed Plant Growth:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="plantGrowth" value="Poor" required> Poor</label>
+                            <label><input type="radio" name="plantGrowth" value="Fair"> Fair</label>
+                            <label><input type="radio" name="plantGrowth" value="Good"> Good</label>
+                            <label><input type="radio" name="plantGrowth" value="Excellent"> Excellent</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Soil Color:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="soilColor" value="Light" required> Light/Pale</label>
+                            <label><input type="radio" name="soilColor" value="Medium"> Medium Brown</label>
+                            <label><input type="radio" name="soilColor" value="Dark"> Dark Brown/Black</label>
+                            <label><input type="radio" name="soilColor" value="Reddish"> Reddish</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Water Drainage:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="drainage" value="Poor" required> Poor (water pools for days)</label>
+                            <label><input type="radio" name="drainage" value="Fair"> Fair (water drains slowly)</label>
+                            <label><input type="radio" name="drainage" value="Good"> Good (water drains within hours)</label>
+                            <label><input type="radio" name="drainage" value="Excessive"> Excessive (water drains very quickly)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Organic Matter Presence:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="organicMatter" value="Low" required> Low (few visible plant residues)</label>
+                            <label><input type="radio" name="organicMatter" value="Medium"> Medium (some plant residues visible)</label>
+                            <label><input type="radio" name="organicMatter" value="High"> High (lots of decomposing material)</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary"><i class="fas fa-flask"></i> Analyze Fertility</button>
+                </form>
+            </div>
+
+            <div id="advanced-tab" class="tab-content hidden">
+                <h2>Advanced Soil Fertility Assessment</h2>
+                <p class="tab-description">For more precise recommendations, enter detailed soil test results if available.</p>
+                
+                <form id="advancedFertilityForm">
+                    <div class="form-group">
+                        <label for="adv-soilType">Soil Type:</label>
+                        <select id="adv-soilType" name="soilType" required>
+                            <option value="">Select Soil Type</option>
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                            <option value="Silt">Silt</option>
+                            <option value="Peaty">Peaty</option>
+                            <option value="Chalky">Chalky</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adv-phLevel">pH Level:</label>
+                        <input type="number" id="adv-phLevel" name="phLevel" min="3.0" max="9.0" step="0.1" value="6.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nitrogenLevel">Nitrogen (N) Level (ppm):</label>
+                        <input type="number" id="nitrogenLevel" name="nitrogenLevel" min="0" max="1000" placeholder="e.g., 40">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phosphorusLevel">Phosphorus (P) Level (ppm):</label>
+                        <input type="number" id="phosphorusLevel" name="phosphorusLevel" min="0" max="1000" placeholder="e.g., 20">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="potassiumLevel">Potassium (K) Level (ppm):</label>
+                        <input type="number" id="potassiumLevel" name="potassiumLevel" min="0" max="1000" placeholder="e.g., 150">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organicMatterPercent">Organic Matter (%):</label>
+                        <input type="number" id="organicMatterPercent" name="organicMatterPercent" min="0" max="100" step="0.1" placeholder="e.g., 3.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cationExchange">Cation Exchange Capacity (CEC):</label>
+                        <input type="number" id="cationExchange" name="cationExchange" min="0" max="100" step="0.1" placeholder="e.g., 15">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calciumLevel">Calcium (Ca) Level (ppm):</label>
+                        <input type="number" id="calciumLevel" name="calciumLevel" min="0" max="10000" placeholder="e.g., 1500">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="magnesiumLevel">Magnesium (Mg) Level (ppm):</label>
+                        <input type="number" id="magnesiumLevel" name="magnesiumLevel" min="0" max="5000" placeholder="e.g., 200">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sulfurLevel">Sulfur (S) Level (ppm):</label>
+                        <input type="number" id="sulfurLevel" name="sulfurLevel" min="0" max="1000" placeholder="e.g., 15">
+                    </div>
+
+                    <button type="submit" class="btn-primary"><i class="fas fa-flask"></i> Analyze Fertility</button>
+                </form>
+            </div>
+
+            <div id="fertility-results" class="fertility-results hidden">
+                <div class="results-header">
+                    <h2>Fertility Analysis Results</h2>
+                    <div class="results-actions">
+                        <button id="printFertility" class="btn-icon"><i class="fas fa-print"></i> Print</button>
+                        <button id="backToFertilityForm" class="btn-icon"><i class="fas fa-arrow-left"></i> Back</button>
+                    </div>
+                </div>
+                <div id="fertilityContainer">
+                    <!-- Fertility results will be displayed here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Green Mind Ai</h3>
+                <p>Helping farmers make informed decisions for sustainable and productive agriculture.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="crop-checker.html">Crop Checker</a></li>
+                    <li><a href="fertility-checker.html">Fertility Checker</a></li>
+                    <li><a href="education.html">Education</a></li>
+                </ul>
+            </div>
+              <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> Greenmindai@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +91 94656-61660</p>
+                <p><i class="fas fa-map-marker-alt"></i> Chitkara university,Himachal Pradesh</p>
+            </div>
+        </div>
+       
+    </footer>
+
+    <script src="fertility-checker.js"></script>
+</body>
+</html>
